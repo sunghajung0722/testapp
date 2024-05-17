@@ -1,14 +1,16 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DeleteList, UpdateList } from "../response/RestApi";
 import { addButton, addTask, addedTask } from "../App";
+import EditComponent from "./EditComponent";
 
 const TaskComponent = ({ list }) => {
   const { _task, setTask } = useContext(addTask);
   const { addtask, setaddTask } = useContext(addedTask);
+  const [setClick, getClick] = useState("");
   const { id } = list;
   const { task } = list;
   const { status } = list;
-
+  const StringVal = "#" + id;
   return (
     <>
       <>
@@ -39,17 +41,29 @@ const TaskComponent = ({ list }) => {
               Delete
             </button>
             <button
-              onClick={() => UpdateList(id, addtask, "complete")}
+              type="button"
+              class="btn btn-warning"
+              data-bs-toggle="modal"
+              data-bs-target={StringVal}
+              onClick={() => getClick(id)}
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => UpdateList(id, addtask, status)}
               className="btn btn-success btn-sm edit-btn"
             >
               Complete
             </button>
-            <button
+
+        
+            <EditComponent setClick={setClick} list={list} />
+            {/* <button
               onClick={() => UpdateList(id, addtask, status)}
               className="btn btn-warning btn-sm edit-btn"
             >
               Update
-            </button>
+            </button> */}
           </div>
         </div>
       </>

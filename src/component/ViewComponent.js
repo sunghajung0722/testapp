@@ -2,8 +2,15 @@ import { useContext, useEffect, useState } from "react";
 import { addedTask } from "../App";
 import { TodoList, UpdateList } from "../response/RestApi";
 
-const ViewComponent = ({ list }) => {
-  const { addtask, setaddTask } = useContext(addedTask);
+const ViewComponent = ({ id, list, modalid }) => {
+  const [addtask, setaddTask] = useState("");
+
+  const updateTaskToTheList = () => {
+    console.log(id);
+    if (addtask !== "") {
+      UpdateList(id, id, addtask).then((value) => {});
+    }
+  };
 
   return (
     <div
@@ -29,7 +36,6 @@ const ViewComponent = ({ list }) => {
           <div className="modal-body">
             <input
               onChange={(e) => setaddTask(e.target.value)}
-              defaultValue={list.task}
               style={
                 list.status === "complete"
                   ? {
@@ -44,6 +50,7 @@ const ViewComponent = ({ list }) => {
               className="form-control"
               placeholder="Add new task"
               required
+              defaultValue={id}
             />
           </div>
           <div className="modal-footer">
@@ -55,7 +62,7 @@ const ViewComponent = ({ list }) => {
               Close
             </button>
             <button
-              //   onClick={() => UpdateList(list.id, addtask, "complete")}
+              onClick={() => updateTaskToTheList()}
               className="btn btn-warning"
               data-bs-dismiss="modal"
             >
