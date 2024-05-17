@@ -14,7 +14,7 @@ const InputComponent = () => {
     TodoList().then((data) => {
       setTodoApi(data.results);
     });
-  }, []);
+  }, [getTodoApi]);
 
   return (
     <div className="container mt-5">
