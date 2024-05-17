@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
 import { DeleteList, UpdateList } from "../response/RestApi";
-import { addButton, addTask } from "../App";
+import { addButton, addTask, addedTask } from "../App";
 
 const TaskComponent = ({ list }) => {
   const { _task, setTask } = useContext(addTask);
+  const { addtask, setaddTask } = useContext(addedTask);
   const { id } = list;
   const { task } = list;
   const { status } = list;
@@ -13,7 +14,7 @@ const TaskComponent = ({ list }) => {
       <>
         <div className="input-group mb-3">
           <input
-            onChange={(e) => setTask(e.target.value)}
+            onChange={(e) => setaddTask(e.target.value)}
             defaultValue={task}
             style={
               status === "complete"
@@ -38,13 +39,13 @@ const TaskComponent = ({ list }) => {
               Delete
             </button>
             <button
-              onClick={() => UpdateList(id)}
+              onClick={() => UpdateList(id, addtask, "complete")}
               className="btn btn-success btn-sm edit-btn"
             >
               Complete
             </button>
             <button
-              onClick={() => UpdateList(id, _task, status)}
+              onClick={() => UpdateList(id, addtask, status)}
               className="btn btn-warning btn-sm edit-btn"
             >
               Update

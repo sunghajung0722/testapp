@@ -11,6 +11,7 @@ export const addedTask = createContext();
 export const addButton = createContext();
 function App() {
   const [task, setTask] = useState("");
+  const [addtask, setaddTask] = useState("");
   const [getButton, setButton] = useState(0);
 
   return (
@@ -26,10 +27,16 @@ function App() {
           setTask,
         }}
       >
-        <addedTask></addedTask>
-        <div className="container">
-          <InputComponent />
-        </div>
+        <addedTask.Provider
+          value={{
+            addtask,
+            setaddTask,
+          }}
+        >
+          <div className="container">
+            <InputComponent />
+          </div>
+        </addedTask.Provider>
       </addTask.Provider>
     </addButton.Provider>
   );
